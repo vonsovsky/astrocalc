@@ -1,0 +1,2 @@
+# astrocalc
+Calculates planets positions
