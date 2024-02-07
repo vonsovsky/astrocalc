@@ -1,8 +1,8 @@
 <?php
-//Header("Content-type: image/png");
+Header("Content-type: image/png");
 
 include 'includes.php';
- 
+
 $w = 600;
 $h = 600;
 
@@ -16,25 +16,25 @@ else $JD = julianDateTime(date('d'), date('m'), date('Y'), date('H'), date('i'),
 
 moonPhase($img, $JD, $w, $h);
 
-//ImagePNG($img);
-//ImageDestroy($img);
+ImagePNG($img);
+ImageDestroy($img);
 
 function moonPhase($img, $JD, $w, $h) {
   $dorusta = true;
   $obj = new Objects($JD);
   $f = $obj->moonPhase();
-  
+
   $im = imagecreatefrompng("moon.png");
   // stretch png do canvasu
   imagecopyresampled($img, $im, 0, 0, 0, 0, $w, $h, 600, 606);
-  
+
   if ($f >= 0 && $f <= 0.5) {
-    $mask = imagecreatetruecolor($w, $h);  
-    imagealphablending($mask, true);  
-  
-    $mask_black = imagecolorallocate($mask, 0, 0, 0);  
-    $mask_magicpink = imagecolorallocate($mask, 1, 0, 1);  
-    imagecolortransparent($mask, $mask_black);  
+    $mask = imagecreatetruecolor($w, $h);
+    imagealphablending($mask, true);
+
+    $mask_black = imagecolorallocate($mask, 0, 0, 0);
+    $mask_magicpink = imagecolorallocate($mask, 1, 0, 1);
+    imagecolortransparent($mask, $mask_black);
     imagefill($mask, 0, 0, $mask_magicpink);
   } else {
     $black = ImageColorAllocate($img, 0, 0, 0);
@@ -68,6 +68,6 @@ function moonPhase($img, $JD, $w, $h) {
 
   if ($f >= 0 && $f <= 0.5) {
     imagecopymerge($img, $mask, 0, 0, 0, 0, $w, $h, 100);
-  }  
+  }
 }
 ?>
